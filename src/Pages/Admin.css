@@ -38,14 +38,14 @@
   background-color: #efeeee;
   border-radius: 0.5rem;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  padding:1.5rem;
   margin-top: 2.5rem;
- 
-  
 }
 
 .users-table {
-  width:100%
+  width:60%;
+  background-color: #80ff00;
+  border-collapse: collapse;
 }
 /*
 .users-table th{
