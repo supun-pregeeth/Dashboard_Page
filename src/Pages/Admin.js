@@ -32,7 +32,7 @@ export default function Dashboard() {
   <div className="users-table-container">
     <table className="users-table">
       <div className="table-header">
-      <thead>
+      <thead className="table-row">
         <tr >
           <th>Name</th>
           <th>Email</th>

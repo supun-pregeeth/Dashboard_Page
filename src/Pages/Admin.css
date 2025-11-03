@@ -34,7 +34,8 @@
   font-weight: bold;
 }
 
- .users-table-container{
+.users-table-container{
+  width:50%;
   background-color: #efeeee;
   border-radius: 0.5rem;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
@@ -43,15 +44,24 @@
 }
 
 .users-table {
-  width:60%;
-  background-color: #80ff00;
+  width:90%;
   border-collapse: collapse;
 }
-/*
+
+.table-header{
+  background-color: #e74141;
+  padding:10px 0px;
+  gap: 45px;
+}
+
 .users-table th{
-  padding: 0.75rem 1rem;
-  padding-left: 20rem;
-  text-align: center;
-  border-bottom: 1px solid #e5e7eb;
-  background-color: blueviolet;
-} */
+  gap:200px; 
+  text-align: left;
+  padding: 0px 0px 10px 0px;
+
+}
+
+.users-table td {
+  padding: 10px 0px;
+  border-top: 1px solid #302f2f;
+}
