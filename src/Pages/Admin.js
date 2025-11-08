@@ -2,10 +2,10 @@ import "./Admin.css";
 
 export default function Dashboard() {
   const overviewData = [
-    { title: "Total Users", value: "78" },
-    { title: "Active Users", value: "45" },
-    { title: "New Signups", value: "5" },
-    { title: "Pending Requests", value: "1" },
+    { title: "Total Users", value: "0" },
+    { title: "Active Users", value: "0" },
+    { title: "New Signups", value: "0" },
+    { title: "Pending Requests", value: "0" },
   ];
 
   const usersData = [
