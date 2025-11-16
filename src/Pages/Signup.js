@@ -1,31 +1,50 @@
-import  { useState } from "react";
+import { useState } from "react";
 import "./Login.css";
 
 function Signup() {
-  // email is the value of the email input field(notebook)
-  // set email is the function to update the email state(pen)
-  const [email, setEmail] = useState(""); // usestate like memory
+  const [username, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setcofirmPassword] = useState("");
-  const [name, setName] = useState("");
-  const [error, setError] = useState({}); // object
-  const [message, setMessage] = useState(""); // string
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => { // async is await
-    e.preventDefault(); // prevent reloading
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    console.log("Name:", name);
+    console.log("Name:", username);
     console.log("Email:", email);
     console.log("Password:", password);
     console.log("Confirm Password:", confirmPassword);
 
-    
+    // 🔥 Basic validation
+    if (password !== confirmPassword) {
+      setMessage("❌ Passwords do not match!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8081/api/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage("✅ Signup successful! You can now log in.");
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+      } else {
+        setMessage(`❌ Signup failed: ${data.message || "Unknown error"}`);
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      setMessage("❌ Something went wrong. Please try again later.");
+    }
   };
-
-
-
-
 
   return (
     <div className="login-container">
@@ -37,11 +56,11 @@ function Signup() {
             type="text"
             placeholder="Name"
             className="login-input"
-            value ={name}
+            value={username}
             onChange={(e) => setName(e.target.value)}
-            minLength={3} // Minimum 3 characters
+            minLength={3}
+            required
           />
-         
         </div>
 
         <div className="input-wrapper">
@@ -51,8 +70,8 @@ function Signup() {
             className="login-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
-      
         </div>
 
         <div className="input-wrapper">
@@ -63,8 +82,8 @@ function Signup() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             minLength={8}
+            required
           />
-         
         </div>
 
         <div className="input-wrapper">
@@ -73,10 +92,10 @@ function Signup() {
             placeholder="Confirm Password"
             className="login-input"
             value={confirmPassword}
-            onChange={(e) => setcofirmPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             minLength={8}
+            required
           />
-        
         </div>
 
         <button type="submit" className="login-button">
@@ -86,9 +105,12 @@ function Signup() {
 
       <div className="login-options">
         <p className="signup-text">
-          Already have an account? <a href="/login" className="signup-link">Login</a>
+          Already have an account?{" "}
+          <a href="/login" className="signup-link">Login</a>
         </p>
       </div>
+
+      {message && <p className="message">{message}</p>}
     </div>
   );
 }
