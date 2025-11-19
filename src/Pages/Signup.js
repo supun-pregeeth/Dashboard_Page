@@ -2,48 +2,25 @@ import { useState } from "react";
 import "./Login.css";
 
 function Signup() {
-  const [username, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // email is the value of the email input field(notebook)
+  // set email is the function to update the email state(pen)
+  const [email, setEmail] = useState(""); // usestate like memory
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [confirmPassword, setcofirmPassword] = useState("");
+  const [username, setName] = useState("");
+  const [error, setError] = useState({}); // object
+  const [message, setMessage] = useState(""); // string
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => { // async is await
+    e.preventDefault(); // prevent reloading
+    
 
     console.log("Name:", username);
     console.log("Email:", email);
     console.log("Password:", password);
     console.log("Confirm Password:", confirmPassword);
 
-    // 🔥 Basic validation
-    if (password !== confirmPassword) {
-      setMessage("❌ Passwords do not match!");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:8081/api/users/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage("✅ Signup successful! You can now log in.");
-        setName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-      } else {
-        setMessage(`❌ Signup failed: ${data.message || "Unknown error"}`);
-      }
-    } catch (err) {
-      console.error("Error:", err);
-      setMessage("❌ Something went wrong. Please try again later.");
-    }
+    
   };
 
   return (
@@ -103,10 +80,21 @@ function Signup() {
         </button>
       </form>
 
+      {/* ✅ Display success or error message */}
+      {message && (
+        <p
+          style={{
+            color: message.startsWith("✅") ? "green" : "red",
+            marginTop: "10px",
+          }}
+        >
+          {message}
+        </p>
+      )}
+
       <div className="login-options">
         <p className="signup-text">
-          Already have an account?{" "}
-          <a href="/login" className="signup-link">Login</a>
+          Already have an account? <a href="/login" className="signup-link">Login</a>
         </p>
       </div>
 
